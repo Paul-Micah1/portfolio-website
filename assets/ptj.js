@@ -85,20 +85,32 @@ modalCloses.forEach((modalClose) => {
   });
 });
 
-/*======================= Portfolio Swiper ===================*/
-var swiper = new Swiper(".portfolio__container", {
-  cssMode: true,
-  loop: true,
-
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
+// Close modal when clicking outside the modal content
+modalViews.forEach((modalView) => {
+  modalView.addEventListener("click", (e) => {
+    if (e.target === modalView) {
+      modalView.classList.remove("active-modal");
+    }
+  });
 });
+
+/*======================= Portfolio Swiper ===================*/
+const portfolioContainer = document.querySelector(".portfolio__container");
+if (portfolioContainer) {
+  var swiper = new Swiper(".portfolio__container", {
+    cssMode: true,
+    loop: true,
+
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
+}
 
 /*==================== SCROLL SECTIONS ACTIVE LINK ====================*/
 const sections = document.querySelectorAll("section[id]");
@@ -108,7 +120,7 @@ function scrollActive() {
 
   sections.forEach((current) => {
     const sectionHeight = current.offsetHeight;
-    const sectionTop = current.offsetTop - 50;
+    const sectionTop = current.offsetTop - 100;
     sectionId = current.getAttribute("id");
 
     if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
